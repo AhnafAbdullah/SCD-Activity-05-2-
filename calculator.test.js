@@ -40,3 +40,9 @@ describe('Calculator API', () => {
     expect(res.statusCode).toBe(400);
   });
 });
+
+test('POST /modulus returns correct remainder', async () => {
+  const res = await request(app).post('/modulus').send({ a: 10, b: 3 });
+  expect(res.statusCode).toBe(200);
+  expect(res.body.result).toBe(1);
+});
