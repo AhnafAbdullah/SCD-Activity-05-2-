@@ -13,6 +13,7 @@ function compute(op, a, b) {
     case 'add': return x + y;
     case 'subtract': return x - y;
     case 'multiply': return x * y;
+    case 'modulus': return x % y;  // 👈 New operation added here
     default: throw new Error('unsupported operation');
   }
 }
@@ -41,6 +42,16 @@ app.post('/multiply', (req, res) => {
   const { a, b } = req.body;
   try {
     const result = compute('multiply', a, b);
+    res.json({ result });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.post('/modulus', (req, res) => {  // 👈 New route for modulus
+  const { a, b } = req.body;
+  try {
+    const result = compute('modulus', a, b);
     res.json({ result });
   } catch (e) {
     res.status(400).json({ error: e.message });
